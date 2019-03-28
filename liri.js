@@ -27,25 +27,26 @@ if (command === "concert-this") {
 } else if (command === "movie-this") {
     movieThis(search);
 } else if (command === "do-what-it-says") {
-    doWhat(command, search);
+    doWhat();
 }
 
 //TODO: This is throwing me errors right now and I'm not certain why.
 //run spotify-this-song for I Want It That Way from random.txt
 function doWhat() {
-    var txtArr = []
-    fs.read("random.txt", "utf8", function (err, data) {
+    console.log("Doing what it says.")
+    fs.readFile('random.txt', 'UTF8', function (err, data) {
+        console.log(data)
         if (err) {
             return err
         }
-        txtArr = data.split(",");
-    }).then(function(data){
-    command = textArr[0]
-    search = textArr[1]
+        var data = data.split(", ");
+        search = data[1]
+        console.log("search is:",search)
+        spotifyThis(search);
 
-    spotifyThis(command, search)
     })
-}
+    console.log("I did what it said to do.")
+};
 
 //search OMDB for target movie and return certain values
 function movieThis() {

@@ -30,6 +30,7 @@ if (command === "concert-this") {
     doWhat(command, search);
 }
 
+//TODO: This is throwing me errors right now and I'm not certain why.
 //run spotify-this-song for I Want It That Way from random.txt
 function doWhat() {
     var txtArr = []

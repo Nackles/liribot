@@ -1,6 +1,7 @@
 //TODO: is moment working right??
+//TODO: activity 14 for fs.write
 
-//include
+//includes
 require('dotenv').config();
 var fs = require('fs');
 var axios = require('axios');
@@ -13,6 +14,11 @@ const spotify = new Spotify(keys.spotify);
 var search = process.argv.slice(3).join(" ")
 var command = process.argv[2]
 
+//make sure search has a default
+if (!search || search === undefined) {
+    search = "Mr Nobody";
+}
+
 //idea will be to use inquire prompts to make this re-usable, but not until the whole thing works
 if (command === "concert-this") {
     concertThis(search);
@@ -20,17 +26,54 @@ if (command === "concert-this") {
     spotifyThis(search);
 } else if (command === "movie-this") {
     movieThis(search);
+} else if (command === "do-what-it-says") {
+    doWhat(command, search);
 }
 
+//run spotify-this-song for I Want It That Way from random.txt
+function doWhat() {
+    var txtArr = []
+    fs.read("random.txt", "utf8", function (err, data) {
+        if (err) {
+            return err
+        }
+        txtArr = data.split(",");
+    }).then(function(data){
+    command = textArr[0]
+    search = textArr[1]
+
+    spotifyThis(command, search)
+    })
+}
+
+//search OMDB for target movie and return certain values
 function movieThis() {
     console.log("Finding what movie this is.")
     axios.get("http://www.omdbapi.com/?t=" + search + "&y=&plot=short&apikey=trilogy").then(
         function (response) {
-            console.log("The movie's rating is: ", response.data);
+
+            console.log("Movie info below!")
+            console.log("Movie name: ", response.data.Title);
+            console.log("Movie released: ", response.data.Year);
+            if (response.data.Ratings[0]) {
+                console.log("IMDB Rating: ", response.data.Ratings[0]);
+            } else {
+                console.log("UNRATED: by IMDB")
+            }
+            if (response.data.Ratings[1]) {
+                console.log("Rotten Tomatoes rating: ", response.data.Ratings[1]);
+            } else {
+                console.log("UNRATED: by Rotten Tomatoes")
+            }
+            console.log("Made in this country:", response.data.Country)
+            console.log("Movie language:", response.data.Language)
+            console.log("Plot Summary:", response.data.Plot)
+            console.log("Actors in movie:", response.data.Actors)
         }
     );
 }
 
+//search spotify for target track and return certain values
 function spotifyThis() {
     console.log("Get spotified")
     console.log(search)
@@ -49,6 +92,7 @@ function spotifyThis() {
     });
 }
 
+//search bandsintown for a band and display if it is not touring, or where they are touring
 function concertThis() {
     var bitURL = "https://rest.bandsintown.com/artists/" + search + "/events?app_id=codingbootcamp"
 

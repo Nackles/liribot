@@ -13,6 +13,7 @@ https://github.com/Nackles/liribot
 
 # Known bugs
 do-what-it-says currently is throwing errors that I still need to figure out
+Update: It's working now!
 
 # Nice-To-Haves
 *I want to make the input an inqurier prompt for nicer usability and recursion.

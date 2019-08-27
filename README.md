@@ -1,6 +1,6 @@
 # Liribot play link
-Except this time I suppose this isn't helpful. Placebo link!
-https://nackles.github.io/liribot/
+Except this time I suppose this isn't helpful. Video demo link!
+https://youtu.be/Lz27dIfhU1E
 
 # Liribot Repo
 https://github.com/Nackles/liribot
@@ -28,6 +28,3 @@ One of the concert date functions is being returned incorrectly as today's date 
 
 # Nice-To-Haves
 *I want to make the input an inqurier prompt for nicer usability and recursion.
-
-# Video Link
-https://youtu.be/Lz27dIfhU1E
